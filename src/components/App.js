@@ -8,38 +8,20 @@ import { v4 as uuid } from "uuid";
 function App() {
   const [items, setItems] = useState(itemData);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [itemName, setItemName] = useState("") ;
-  const [itemCategory, setCategoryName] = useState("Produce");
-
-  const newItem = {
-    id: uuid(), // the `uuid` library can be used to generate a unique id
-    name: itemName,
-    category: itemCategory,
-  };
+  
 
   function handleDarkModeClick() {
     setIsDarkMode((isDarkMode) => !isDarkMode);
   }
 
-  function handleSetItemsUpdate(event){
-    setItems()
+  function onItemFormSubmit(newItem) {
+    setItems([...items, newItem]);
   }
-
-  function handleSubmit(event){
-    event.preventDefault()
-    setItems();
-  }
-
-  function handleSubmit(event, element) {
-    event.preventDefault();
-    setItems([...items, element]);
-  }
-
 
   return (
     <div className={"App " + (isDarkMode ? "dark" : "light")}>
       <Header isDarkMode={isDarkMode} onDarkModeClick={handleDarkModeClick} />
-      <ShoppingList items={items} onItemFormSubmit={handleSubmit} holdingArray={newItem} />
+      <ShoppingList items={items} onItemFormSubmit={onItemFormSubmit} />
     </div>
   );
 }
